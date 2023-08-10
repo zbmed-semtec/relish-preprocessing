@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Fellerhoff"
+  given-names: "Tim"
+- family-names: "Geist"
+  given-names: "Lukas"
+- family-names: "Dadi"
+  given-names: "Vishnu"
+- family-names: "Ravinder"
+  given-names: "Rohitha"
+- family-names: "Talha"
+  given-names: "Muhammad"
+- family-names: "Rebholz-Schuhmann"
+  given-names: "Dietrich"
+  orcid: "https://orcid.org/0000-0002-1018-0370"
+- family-names: "Castro"
+  given-names: "Leyla Jael"
+  orcid: "https://orcid.org/0000-0003-3986-0510"
+title: "TREC and RELISH common processing tasks"
+version: 1.0.0
+url: "https://github.com/zbmed-semtec/relish-preprocessing"

@@ -1,1 +1,1 @@
-# relish-preprocessing
+# RELISH preprocessing pipeline
