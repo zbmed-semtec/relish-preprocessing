@@ -17,6 +17,6 @@ authors:
 - family-names: "Castro"
   given-names: "Leyla Jael"
   orcid: "https://orcid.org/0000-0003-3986-0510"
-title: "TREC and RELISH common processing tasks"
+title: "RELISH preprocessing pipeline"
 version: 1.0.0
 url: "https://github.com/zbmed-semtec/relish-preprocessing"
