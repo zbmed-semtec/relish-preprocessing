@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<collection>
+ <document>
+  <id>
+   1285365
+  </id>
+  <passage>
+   <infon key="type">
+    title
+   </infon>
+   <offset>
+    0
+   </offset>
+   <text>
+    Submucosal glands are the predominant site of CFTR expression in the human bronchus.
+   </text>
+  </passage>
+  <passage>
+   <infon key="type">
+    abstract
+   </infon>
+   <offset>
+    85
+   </offset>
+   <text>
+    We have used in situ hybridization and immunocytochemistry to characterize the cellular distribution of cystic fibrosis (CF) gene expression in human bronchus. The cystic fibrosis transmembrane conductance regular (CFTR) was primarily localized to cells of submucosal glands in bronchial tissues from non-CF individuals notably in the serous component of the secretory tubules as well as a subpopulation of cells in ducts. Normal distribution of CFTR mRNA was found in CF tissues while expression of CFTR protein was genotype specific, with delta F508 homozygotes demonstrating no detectable protein and compound heterozygotes expressing decreased levels of normally distributed protein. Our data suggest mechanisms whereby defects in CFTR expression could lead to abnormal production of mucus in human lung.
+   </text>
+  </passage>
+ </document>
+ </collection>

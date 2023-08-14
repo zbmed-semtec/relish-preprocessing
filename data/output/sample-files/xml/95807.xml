@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<collection>
+ <document>
+  <id>
+   95807
+  </id>
+  <passage>
+   <infon key="type">
+    title
+   </infon>
+   <offset>
+    0
+   </offset>
+   <text>
+    Augmented resistance to Listeria monocytogenes in mice at an early stage of aging.
+   </text>
+  </passage>
+  <passage>
+   <infon key="type">
+    abstract
+   </infon>
+   <offset>
+    83
+   </offset>
+   <text>
+    Protective mechanisms against Listeria monocytogenes were studied in young (3-month-old) and old (15-month-old) mice of C3H/He strain. Cumulative mortality rates of old mice were lower than those of young mice after intravenous inoculation of the same doses of bacteria. The numbers of bacteria in the liver and spleen on days 1 and 3 were larger in young than old mice. Bacterial growth at this stage of infection is suppressed by accumulation of non-immune macrophages. On day 7, however, the numbers of bacteria in the liver were smaller in young than old mice. Bacterial elimination at this stage depends upon immune macrophages. These results suggest that the enhanced resistance to lethal effects of bacteria in old mice may be ascribed to activation of non-immune macrophages in the presence of depressed capacities to raise cell-mediated immunity.
+   </text>
+  </passage>
+ </document>
+ </collection>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<collection>
+ <document>
+  <id>
+   95800
+  </id>
+  <passage>
+   <infon key="type">
+    title
+   </infon>
+   <offset>
+    0
+   </offset>
+   <text>
+    Establishment of specific antibody producing human lines by antigen preselection and Epstein-Barr virus (EBV)-transformation.
+   </text>
+  </passage>
+  <passage>
+   <infon key="type">
+    abstract
+   </infon>
+   <offset>
+    126
+   </offset>
+   <text>
+    Specific antibody producing human cell lines were established by preselecting antigen binding B-lymphocytes and subsequently transforming ("immortalizing") them with Epstein-Barr virus (EBV). NNP-binding B-cells were isolated from the blood of three donors with high anti-NNP titers. EBV-transformation led to polyclonal cell lines that had 15-18% NNP receptor positive cells. A similar fraction of the cells produced NNP-specific plaques in the Cunningham-Szenberg assay. Unconcentrated culture media agglutinated NNP-coupled erythrocytes in up to an 1/2,048 dilution and inactivated NNP-coupled T4 bacteriophage in up to an 1/10,000 dilution. EBV-transformed but not similarly NNP-preselected lines of the same donors were completely negative in the rosette, plaque and antibody secretion tests. Supernatants of the antibody producing lines gave no reaction with the non-coupled erythrocytes or with a number of other hapten coupled controls. Anti-NNP antibodies secreted by all three preselected lines were of the IgM kappa type, which was in contrast to the sera of the donors that contained both IgM and IgG antibodies, with both light chain types. Cloning of one NNP-antibody producing line yielded 9 antibody producers out of 30. The positive clones formed NNP rosettes and plaques with 31-86% of the cells and produced anti-NNP of class IgM, Kappa. The cell culture contained 5-16 micrograms IgM/ml cell culture.
+   </text>
+  </passage>
+ </document>
+ </collection>

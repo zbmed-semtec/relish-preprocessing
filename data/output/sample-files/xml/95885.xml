@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<collection>
+ <document>
+  <id>
+   95885
+  </id>
+  <passage>
+   <infon key="type">
+    title
+   </infon>
+   <offset>
+    0
+   </offset>
+   <text>
+    Specificities of rabbit anti-human insulin receptor antibodies.
+   </text>
+  </passage>
+  <passage>
+   <infon key="type">
+    abstract
+   </infon>
+   <offset>
+    64
+   </offset>
+   <text>
+    Human insulin receptors obtained from normal human placentae were highly purified by affinity chromatography and used to immunize rabbits. The immunological response was evaluated in order to reveal the presence of antibodies blocking the binding of insulin to monocytes of normal subjects. Since no blocking activity was found IgG from rabbits were coupled to agarose in order to evaluate the presence of antibodies directed to determinant(s) other than the insulin binding site. One rabbit was found to produce antibodies binding the insulin receptor on a site different from the insulin binding site.
+   </text>
+  </passage>
+ </document>
+ </collection>
