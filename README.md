@@ -11,7 +11,7 @@ Please be aware that the files might not have been uploaded to the repository on
 The following section outlines the primary processes applied to the input data of the RELISH dataset.
 
 ### Retrieving PMID Articles
-+ Iteration through articles in the RELISH JSON format using the [BioC API](https://www.ncbi.nlm.nih.gov/research/bionlp/APIs/BioC-PubMed/) to obtain XML files containing identifiers (PMIDs), titles, and abstracts. Refer to the provided [XML sample files]((https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/sample-files/xml)) for RELISH. It's also possible to retrieve this information from the bulk download from Medline using the JATS format.
++ Iteration through articles in the RELISH JSON format using the [BioC API](https://www.ncbi.nlm.nih.gov/research/bionlp/APIs/BioC-PubMed/) to obtain XML files containing identifiers (PMIDs), titles, and abstracts. Refer to the provided [XML sample files](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/sample-files/xml) for RELISH. It's also possible to retrieve this information from the bulk download from Medline using the JATS format.
 + Recording missing PMIDs, indicating PMIDs for which the retrieval process failed or whose title/abstract is not available as text. Refer to the list of [missing PMIDs]() for RELISH.
 + Creation of a TSV file with PMID, title and abstract. Review the [TSV sample file](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/sample-files/tsv/documents_20220822.tsv) for RELISH.
 
