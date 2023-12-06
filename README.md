@@ -1,6 +1,19 @@
 # RELISH Preprocessing
 The RELISH preprocessing repository is responsible for managing processes related to obtaining and transforming Medline articles for utilization in software pipelines focused on dictionary-based Named Entity Recognition (NER), word embeddings and  document level embeddings targeting document-to-document relevance, similarity, and recommendations. The current functionality of the 'relish-preprocessing' involves processing a list of articles adhering to the RELISH format.
 
+## Table of Contents
+
+1. [About](#about)
+2. [Input Data](#input-data)
+3. [Pipeline](#pipeline)
+    1. [Retrieving PMID Articles](#retrieving-pmid-articles)
+    2. [Generating Ground Truth Data: PMID Pairs and Relevance Labels](#generating-ground-truth-data-pmid-pairs-and-relevance-labels)
+    3. [Text preprocessing for Generating Embeddings](#text-preprocessing-for-generating-embeddings)
+4. [Getting Started](#getting-started)
+5. [Code Implementation](#code-implementation)
+6. [Output Data](#output-data)
+7. [Tutorials](#tutorials)
+
 # Data input
 [RELISH](https://academic.oup.com/database/article/doi/10.1093/database/baz138/5871485?login=false) is an expert-curated database designed for benchmarking document similarity in biomedical literature. The database v1 was downloaded from its corresponding [FigShare record](https://figshare.com/projects/RELISH-DB/60095) on the 24th of January 2022. It consists of a [JSON file](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/input/RELISH_v1.json) with PubMed Ids (PMIDs) and the corresponding document-2-document relevance assessments wrt other PMIDs. Relevance is categorized as "relevant", "partial" or "irrelevant".
 
@@ -33,6 +46,54 @@ For the purpose of generating embeddings, several cleaning and pruning steps are
     + Tokenization.
 
 After performing the proposed cleaning, the retrieved articles in TSV format are saved as a NumPy array. A sample of the [processed TSV file](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/relish-preprocessed-text/RELISH_documents_pruned.tsv) and the [numPy arrays](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/relish-preprocessed-text/RELISH_Tokenized.npy) are available for RELISH.
+
+
+## Getting Started
+
+To get started with this project, follow these steps:
+
+### Clone the Repository
+First, clone the repository to your local machine using the following command:
+
+###### Using HTTP:
+
+```
+git clone https://github.com/zbmed-semtec/relish-preprocessing.git
+```
+
+###### Using SSH:
+Ensure you have set up SSH keys in your GitHub account.
+
+```
+git clone git@github.com:zbmed-semtec/relish-preprocessing.git
+```
+
+### Create a virtual environment and install dependencies
+
+To create a virtual environment within your repository, run the following command:
+
+```
+python3 -m venv .venv 
+source .venv/bin/activate   # On Windows, use '.venv\Scripts\activate' 
+```
+
+To confirm if the virtual environment is activated and check the location of yourPython interpreter, run the following command:
+
+```
+which python    # On Windows command prompt, use 'where python'
+                # On Windows PowerShell, use 'Get-Command python'
+```
+The code is stable with python 3.6 and higher. The required python packages are listed in the requirements.txt file. To install the required packages, run the following command:
+
+```
+pip install -r requirements.txt
+```
+
+To deactivate the virtual environment after running the project, run the following command:
+
+```
+deactivate
+```
 
 # Code Implementation
 Code scripts for the following processes can be found here:
