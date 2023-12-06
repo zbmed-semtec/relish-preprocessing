@@ -44,6 +44,7 @@ For the purpose of generating embeddings, several cleaning and pruning steps are
     + Eliminating punctuation marks (excluding hyphens, as hyphenated words might carry a distinct meaning).
     + Removal of special characters.
     + Tokenization.
+    + Stopwords removal.
 
 After performing the proposed cleaning, the retrieved articles in TSV format are saved as a NumPy array. A sample of the [processed TSV file](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/relish-preprocessed-text/RELISH_documents_pruned.tsv) and the [numPy arrays](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/relish-preprocessed-text/RELISH_Tokenized.npy) are available for RELISH.
 
