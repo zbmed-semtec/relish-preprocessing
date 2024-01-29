@@ -1,7 +1,7 @@
 import pandas as pd
 
 file_path = 'playground/RELISH.tsv'
-column_names = ['PMID1', 'PMID2', 'rel']
+column_names = ['PMID1', 'PMID2', 'Relevance']
 df = pd.read_csv(file_path, sep='\t', names=column_names)
 
 #  Analyzing number of unique reference PMIDs
@@ -10,7 +10,7 @@ print(len(df['PMID1'].unique()))
 
 #  Analyzing number of assessments for each reference PMID
 pair_counts = df.groupby('PMID1')['PMID2'].nunique().reset_index(name='count')
-pair_counts.to_csv('relish_assessments.tsv', sep='\t')
+pair_counts.to_csv('playground/relish_assessments.tsv', sep='\t')
 
 
 #  Analyzing unique number of assessments for all reference PMIDs
@@ -35,7 +35,7 @@ selected_pmids = pmid_counts.loc[pmid_counts['count'] < 50]
 pmids = selected_pmids['PMID1']
 
 filtered_df = df[~df['PMID1'].isin(pmids)]
-filtered_df.to_csv('relish_filtered_pairs.tsv', sep='\t')
+filtered_df.to_csv('playground/relish_filtered_pairs.tsv', sep='\t')
 
 print('Total number of pairs in RELISH:', len(df))
 print('Total number of pairs after filtering:', len(filtered_df)) 
