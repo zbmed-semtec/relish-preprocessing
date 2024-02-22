@@ -21,40 +21,56 @@ Note:
 """
 
 
-# Load the data
-# data = pd.read_csv('data/output/relish-ground-truth/RELISH.tsv', delimiter='\t', header=None)
-data = pd.read_csv('RELISH.tsv', delimiter='\t', header=None)
-print('Initial pairs in relevance matrix:', len(data))
+# Load the RELISH relevance file
+df = pd.read_csv('data/input/RELISH.tsv', delimiter='\t', header=None, names=['PMID1', 'PMID2', 'Relevance'])
+print('Initial pairs in relevance matrix:', len(df))
+
+# Load RELISH Title and Abstract file
+text_file_df = pd.read_csv('data/RELISH_documents_2022628.tsv', delimiter='\t', header=None, names=['PMID', 'Title', 'Abstract'])
+
+# Get list of PMIDs for which title and abstract is available
+pmids = text_file_df['PMID'].tolist()[1:]
+pmids = list(map(int, pmids))
+
+# Filter Relevance pairs by only keeping those which have a title and a abstract
+df_filtered_without_text = df[df['PMID1'].isin(pmids) & df['PMID2'].isin(pmids)]
+print('Length of relevance matrix after removing PMIDs without a title and abstract:', len(df_filtered_without_text))
+
+# Filter Relevance pairs by removing assessed PMIDs that have multiple annottaions
+df_filtered = df_filtered_without_text[~df_filtered_without_text['PMID2'].duplicated(keep=False)]
+print('Length of relevance matrix after removing assessed PMIDs duplicates:', len(df_filtered))
+
 
 # Get the unique reference articles
-refDocs = np.unique(data[0])  # First column
+refDocs = np.unique(df_filtered['PMID1'])  # First column
 print('Length of unique reference articles:', len(refDocs))
 
 # Get the unique assessed articles
-asdDocs = np.unique(data[1])
+asdDocs = np.unique(df_filtered['PMID2'])
 print('Length of unique assessed articles:', len(asdDocs))
 
-# Find reference articles if they do not exist in PID2
-onlyRefDocs = [pid for pid in refDocs if pid not in asdDocs]  # Second column
-print('Length of reference articles that do not exist as assessed articles:',len(onlyRefDocs))
+# Find reference articles if they do not exist in PMID2
+onlyRefDocs = [pmid for pmid in refDocs if pmid not in asdDocs]  # Second column
+print('Length of reference articles that do not exist as assessed articles:', len(onlyRefDocs))
 
 # Assuming onlyRefDocs is the list of reference articles that do not exist as assessed articles
-onlyRefDocs_data = data[data[0].isin(onlyRefDocs)]
+onlyRefDocs_data = df_filtered[df_filtered['PMID1'].isin(onlyRefDocs)]
+print('data', len(onlyRefDocs_data))
 
-# Find reference articles if they exist in PID2
-notonlyRefDocs = [pid for pid in refDocs if pid in asdDocs]  # Second column
+# Find reference articles if they exist in PMID2
+notonlyRefDocs = [pmid for pmid in refDocs if pmid in asdDocs]  # Second column
 print('Length of reference articles that also exist as assessed articles:', len(notonlyRefDocs))
 
 # Filter data based on onlyRefDocs
-refRelMatrix = data[data[0].isin(onlyRefDocs)]  # Filter based on PID1
+refRelMatrix = df_filtered[df_filtered['PMID1'].isin(onlyRefDocs)]  # Filter based on PMID1
 print('Total pairs after filtering:', len(refRelMatrix))
 
-# Save the pairs being removed to 'valid.tsv'
-valid_data = data[~data[0].isin(onlyRefDocs)]
-valid_data.to_csv('valid.tsv', sep='\t', header=None, index=False)
+# Creating the validation pairs
+ref_rel_val = df_filtered_without_text[~df_filtered_without_text.isin(refRelMatrix.to_dict('list')).all(axis=1)]
+print('Total pairs for the validation dataset:', len(ref_rel_val))
 
 # # Remove the corresponding pairs from data
-# refRelMatrix = data[~data[1].isin(refDocs)]  # Filter based on PID2
+# refRelMatrix = data[~data[1].isin(refDocs)]  # Filter based on PMID2
 
 # Initialize variables to store the best split
 best_split = None
@@ -67,16 +83,16 @@ for i in range(1000):
     np.random.seed(i)
 
     # Split onlyRefDocs into 80/20
-    # train_onlyRef, test_onlyRef = train_test_split(onlyRefDocs, test_size=0.2)
+    train_onlyRef, test_onlyRef = train_test_split(onlyRefDocs, test_size=0.2)
 
     # Use 'Relevance' as the stratification variable
-    train_data, test_data = train_test_split(onlyRefDocs_data, test_size=0.2, random_state=42, stratify=onlyRefDocs_data[2])
+    # train_onlyRef, test_onlyRef = train_test_split(onlyRefDocs, test_size=0.2, random_state=42, stratify=onlyRefDocs_data['Relevance'])
 
     # Filter refRelMatrix based on train_onlyRef
-    ref_rel_train = refRelMatrix[refRelMatrix[0].isin(train_onlyRef)]  # Filter based on PID1
+    ref_rel_train = refRelMatrix[refRelMatrix['PMID1'].isin(train_onlyRef)]  # Filter based on PID1
 
     # Update refRelMatrix by removing rows corresponding to train_onlyRef
-    ref_rel_test = refRelMatrix[~refRelMatrix[0].isin(train_onlyRef)]  # Update based on PID1
+    ref_rel_test = refRelMatrix[~refRelMatrix['PMID1'].isin(train_onlyRef)]  # Update based on PID1
 
     # Print out the size of train_onlyRef, ref_rel_train, and total rows in train and test for debugging
     total_rows_train_test = len(train_onlyRef) + len(test_onlyRef)
@@ -112,6 +128,7 @@ if best_split:
     # # Save the best train and test splits to separate files
     df = pd.DataFrame(ref_rel_train).to_csv('train_split.tsv', sep='\t', index=False)
     df = pd.DataFrame(ref_rel_test).to_csv('test_split.tsv', sep='\t', index=False)
+    df = pd.DataFrame(ref_rel_val).to_csv('val_split.tsv', sep='\t', index=False)
 else:
     print("No iterations performed.")
 
