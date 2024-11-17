@@ -15,7 +15,7 @@ The RELISH preprocessing repository is responsible for managing processes relate
 6. [Output Data](#output-data)
 7. [Tutorials](#tutorials)
 
-# Data input
+# Input Data
 [RELISH](https://academic.oup.com/database/article/doi/10.1093/database/baz138/5871485?login=false) is an expert-curated database designed for benchmarking document similarity in biomedical literature. The database v1 was downloaded from its corresponding [FigShare record](https://figshare.com/projects/RELISH-DB/60095) on the 24th of January 2022. It consists of a [JSON file](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/input/RELISH_v1.json) with PubMed Ids (PMIDs) and the corresponding document-2-document relevance assessments wrt other PMIDs. Relevance is categorized as "relevant", "partial" or "irrelevant".
 
 Please be aware that the files might not have been uploaded to the repository on the same date as they were initially downloaded.
@@ -50,35 +50,30 @@ For the purpose of generating embeddings, several cleaning and pruning steps are
 After performing the proposed cleaning, the retrieved articles in TSV format are saved as a NumPy array. A sample of the [processed TSV file](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/relish-preprocessed-text/RELISH_documents_pruned.tsv) and the [numPy arrays](https://github.com/zbmed-semtec/relish-preprocessing/blob/main/data/output/relish-preprocessed-text/RELISH_Tokenized.npy) are available for RELISH.
 
 ### Splitting the Data
-This script is designed to split a dataset into training and testing sets while considering specific criteria. The input data is assumed to be in TSV format and represents pairs of articles with associated relevance scores.
+This [script](./code/data-splitting/relevancy_matrix.py) is designed to split a dataset into training, validation and test datasets while considering specific criteria. The input data is assumed to be in TSV format and represents pairs of articles with associated relevance scores.
 
-
-+ The input data is loaded from the file 'RELISH.tsv' using pandas.
-+ Initial Data Analysis:
-   - The unique reference and assessed articles are identified.
-   - Articles that exist as reference but not as assessed are identified and stored in `onlyRefDocs`.
- 
-+ Filtering Data:
-   - Rows corresponding to reference articles that do not exist as assessed articles are extracted and stored in `onlyRefDocs_data`.
-   - Rows corresponding to reference articles that exist as assessed articles are stored in `refRelMatrix`.
-
-+ Save Excluded Pairs:
-   - The pairs being removed during the filtering process are saved in a file named 'valid.tsv'.
-
-+ Loop for 1000 Iterations:
-   - For each iteration, a different random seed is generated for reproducibility.
-   - The `onlyRefDocs_data` is split into training and testing sets using the `train_test_split` function, with 80/20 ratio and stratification based on relevance.
-   - The `refRelMatrix` is filtered based on the training set.
-   - The error from the 80% target split is calculated, and the best split is updated if the error is smaller.
-
-+ Report Best Results:
-   - After the loop, the script reports the details of the best split found, including the sizes of train and test sets and the percentage of pairs in each.
-   - The best train and test splits are saved in separate files named 'train_split.tsv' and 'test_split.tsv'.
-
-
-
-
-
++ Start with the RELISH Relevance Pairs Ground Truth TSV file.
++ Filter pairs to keep only those with both a title and an abstract.
++ Remove duplicate assessed PMIDs.
++ Identify unique reference articles (PMID1).
++ Remove reference articles that also exist as assessed articles (PMID2).
++ Extract reference-only articles (PMID1 not in PMID2) for further filtering.
++ Create a validation dataset by removing pairs with reference articles that also appear as assessed articles.
++ First Pass (90/10 Split):
+   + Run 1000 iterations to determine the best 90/10 train/test split.
+      + Split the unique reference articles into 90% train and 10% rest.
+      + Filter relevance pairs based on the train/test split.
+      + Calculate the percentage of pairs in the 90% train split.
+      + Track the split with the smallest error from the 90% target.
++ Second Pass (50/50 Split on 10% Test Data for Validation and Test):
+   + From the 10% test data obtained in the first pass, further split it into 50/50 for validation and testing:
+      + Split the 10% test data into 50% for validation and 50% for testing.
+      + Filter relevance pairs based on this new split.
+      + Calculate the percentage of pairs in the 50% validation set.
+      + Track the split with the smallest error from the 50% target.
++ Save the best splits as train.tsv, test.tsv, and valid.tsv.
++ Extract title and abstract for Train, Test, and Validation datasets using [`extract_pmids.py`](./code/data-splitting/extract_pmids.py) script and generate .npy files for Train, Test, and Validation sets. Do the same for the Annotated Dataset as well.
++ For BERT based approaches, use the [`preprocess_bert.py`](./code/data-splitting/preprocess_bert.py) to generate the training, validation, and test datasets containing the input text for BERT models.
 
 ## Getting Started
 
